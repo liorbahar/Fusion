@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Feedback {
+  id               String    @id @default(uuid())
+  content          String
+  status           String    @default("RECEIVED") // RECEIVED, ANALYZING, DONE, FAILED
+  contentHash      String    @unique
+  rawAiResponse    String?
+  structuredResult String?
+  analysisError    String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+}
