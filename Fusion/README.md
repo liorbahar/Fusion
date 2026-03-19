@@ -110,6 +110,10 @@ A natural evolution is moving to a **microservices pattern** using Apache Kafka:
 
 Initially, the AI suggested a synchronous flow where the API waited for the LLM response. This was corrected by introducing a Worker/Queue design so the API returns 202 quickly and response time stays under ~50ms. The Zod validation logic was also adjusted to correctly handle OpenAI’s `response_format: { type: "json_object" }` output, including when the response was not valid JSON.
 
+### Development Challenges
+
+Due to an issue with the API token, development initially used mocked AI responses to build and test the entire asynchronous infrastructure. This demonstrates the system’s modularity: the `AnalysisService` can easily switch between a real LLM provider and a mock implementation without affecting the worker, queue, or API layer.
+
 ---
 
 ## Setup
